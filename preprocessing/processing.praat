@@ -24,6 +24,7 @@ f0_pct95 = Get quantile... 0 0 0.95 hertz
 f0_mean_logHertz = Get mean... 0 0 logHertz
 f0_pct5_logHertz = Get quantile... 0 0 0.05 logHertz
 f0_pct95_logHertz = Get quantile... 0 0 0.95 logHertz
+f0_range_logHertz = f0_pct95_logHertz - f0_pct5_logHertz
 
 select Pitch sound
 Remove
@@ -126,21 +127,25 @@ appendInfoLine: text$
 text$ = "duration_vcd,'dur_vcd'"
 appendInfoLine: text$
 
-text$ = "pitch_mean,'f0_mean'"
+#text$ = "pitch_mean,'f0_mean'"
+#appendInfoLine: text$
+
+#text$ = "pitch_5,'f0_pct5'"
+#appendInfoLine: text$
+
+#text$ = "pitch_95,'f0_pct95'"
+#appendInfoLine: text$
+
+text$ = "pitch_mean,'f0_mean_logHertz'"
 appendInfoLine: text$
 
-text$ = "pitch_5,'f0_pct5'"
+text$ = "pitch_5,'f0_pct5_logHertz'"
 appendInfoLine: text$
 
-text$ = "pitch_95,'f0_pct95'"
+text$ = "pitch_95,'f0_pct95_logHertz'"
 appendInfoLine: text$
 
-text$ = "pitch_mean_logHertz,'f0_mean_logHertz'"
-appendInfoLine: text$
-text$ = "pitch_5_logHertz,'f0_pct5_logHertz'"
-appendInfoLine: text$
-
-text$ = "pitch_95_logHertz,'f0_pct95_logHertz'"
+text$ = "pitch_range,'f0_range_logHertz'"
 appendInfoLine: text$
 
 text$ = "intensity_mean,'int_mean'"

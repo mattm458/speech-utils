@@ -11,6 +11,34 @@ with open("preprocessing/processing.praat") as infile:
     script = infile.read()
 
 
+def extract_features(
+    wavfile: str,
+    transcript: str,
+    start: Optional[float] = None,
+    end: Optional[float] = None,
+    channel: Optional[int] = None,
+) -> Optional[Dict[str, float]]:
+    sound = parselmouth.Sound(wavfile)
+
+    if channel is not None:
+        sound = sound.extract_channel(channel=channel)
+
+    if start is not None or end is not None:
+        sound = sound.extract_part(from_time=start, to_time=end)
+
+    features = get_features(sound=sound)
+
+    if features is None:
+        return None
+
+    num_syllables = sum([get_syllables(word) for word in transcript.split(" ")])
+
+    features['rate'] = features['duration'] / num_syllables
+    features['rate_vcd'] = features['duration_vcd'] / num_syllables
+
+    return features
+
+
 def get_features(sound: parselmouth.Sound) -> Optional[Dict]:
     try:
         _, output = parselmouth.praat.run(sound, script, capture_output=True)
