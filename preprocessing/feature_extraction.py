@@ -23,7 +23,6 @@ def get_features(sound: parselmouth.Sound) -> Optional[Dict]:
 
 
 def get_syllables(word: str) -> int:
-    """Count the number of syllables in a word."""
     # Remove trailing whitespace and convert to lowercase for dictionary lookup.
     word = word.strip().lower()
 
@@ -40,9 +39,6 @@ def get_syllables(word: str) -> int:
     # Special case: Words consisting only of "?"
     # This situation occurs when the utterance is unclear, and annotators leave
     # one question mark per syllable.
-    #
-    # Note that, in the B-MIC, annotators do not leave punctuation except for
-    # this case.
     num_qs = sum([1 if x == "?" else 0 for x in word])
     if num_qs == len(word):
         return num_qs
