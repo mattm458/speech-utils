@@ -1,3 +1,7 @@
+# Other project ignores
+*.ipynb
+*.csv
+
 # Custom ML project exclusions
 lightning_logs/
 

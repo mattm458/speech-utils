@@ -1,3 +1,5 @@
+import math
+import os
 from typing import Dict, Optional
 
 import hyphenate
@@ -7,18 +9,21 @@ from nltk.corpus import cmudict
 MIN_DUR = 6.4 / 75
 d = cmudict.dict()
 
-with open("preprocessing/processing.praat") as infile:
+with open(f"{os.path.realpath(os.path.dirname(__file__))}/processing.praat") as infile:
     script = infile.read()
 
 
 def extract_features(
-    wavfile: str,
     transcript: str,
+    wavfile: str = None,
+    sound: parselmouth.Sound = None,
     start: Optional[float] = None,
     end: Optional[float] = None,
     channel: Optional[int] = None,
 ) -> Optional[Dict[str, float]]:
-    sound = parselmouth.Sound(wavfile)
+
+    if sound is None:
+        sound = parselmouth.Sound(wavfile)
 
     if channel is not None:
         sound = sound.extract_channel(channel=channel)
@@ -33,8 +38,8 @@ def extract_features(
 
     num_syllables = sum([get_syllables(word) for word in transcript.split(" ")])
 
-    features['rate'] = features['duration'] / num_syllables
-    features['rate_vcd'] = features['duration_vcd'] / num_syllables
+    features["rate"] = math.log(features["duration"] / num_syllables)
+    features["rate_vcd"] = math.log(features["duration_vcd"] / num_syllables)
 
     return features
 
