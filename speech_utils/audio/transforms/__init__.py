@@ -1,4 +1,4 @@
-from speech_utils.transforms.mel_spectrogram import (
+from speech_utils.audio.transforms.mel_spectrogram import (
     HifiGanMelSpectrogram,
     TacotronMelSpectrogram,
     log_mel_to_mel,

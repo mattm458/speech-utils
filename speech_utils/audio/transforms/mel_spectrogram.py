@@ -41,21 +41,25 @@ class TacotronMelSpectrogram(MelSpectrogram):
         )
 
     def __call__(self, x: Tensor) -> Tensor:
-        mel_spectrogram = super().__call__(x).swapaxes(1, 2)
+        mel_spectrogram = super().__call__(x).swapaxes(-1, -2)
         return mel_to_log_mel(mel_spectrogram)
 
 
-def HifiGanMelSpectrogram() -> MelSpectrogram:
-    return MelSpectrogram(
-        sample_rate=22050,
-        n_fft=1024,
-        win_length=1024,
-        hop_length=256,
-        f_min=0.0,
-        f_max=None,
-        n_mels=80,
-        power=1.0,
-        mel_scale="slaney",
-        norm="slaney",
-        center=False,
-    )
+class HifiGanMelSpectrogram(MelSpectrogram):
+    def __init__(self):
+        super().__init__(
+            sample_rate=22050,
+            n_fft=1024,
+            win_length=1024,
+            hop_length=256,
+            f_min=0.0,
+            f_max=None,
+            n_mels=80,
+            power=1.0,
+            mel_scale="slaney",
+            norm="slaney",
+            center=False,
+        )
+
+    def __call__(self, x: Tensor) -> Tensor:
+        return super().__call__(x).swapaxes(-1, -2)
