@@ -1,7 +1,5 @@
-from setuptools import setup
+import setuptools
 
-setup(
-    name="speech_utils",
-    version="0.1",
-    packages=[".speech_utils"],
+setuptools.setup(
+    name="speech_utils", version="0.1", packages=setuptools.find_packages()
 )
