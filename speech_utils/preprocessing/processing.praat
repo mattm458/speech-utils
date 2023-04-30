@@ -20,6 +20,7 @@ To Pitch... 0 75 600
 f0_mean = Get mean... 0 0 hertz
 f0_pct5 = Get quantile... 0 0 0.05 hertz
 f0_pct95 = Get quantile... 0 0 0.95 hertz
+f0_range = f0_pct95 - f0_pct5
 
 f0_mean_logHertz = Get mean... 0 0 logHertz
 f0_pct5_logHertz = Get quantile... 0 0 0.05 logHertz
@@ -127,25 +128,28 @@ appendInfoLine: text$
 text$ = "duration_vcd,'dur_vcd'"
 appendInfoLine: text$
 
-#text$ = "pitch_mean,'f0_mean'"
-#appendInfoLine: text$
-
-#text$ = "pitch_5,'f0_pct5'"
-#appendInfoLine: text$
-
-#text$ = "pitch_95,'f0_pct95'"
-#appendInfoLine: text$
-
-text$ = "pitch_mean,'f0_mean_logHertz'"
+text$ = "pitch_mean,'f0_mean'"
 appendInfoLine: text$
 
-text$ = "pitch_5,'f0_pct5_logHertz'"
+text$ = "pitch_5,'f0_pct5'"
 appendInfoLine: text$
 
-text$ = "pitch_95,'f0_pct95_logHertz'"
+text$ = "pitch_95,'f0_pct95'"
 appendInfoLine: text$
 
-text$ = "pitch_range,'f0_range_logHertz'"
+text$ = "pitch_range,'f0_range'"
+appendInfoLine: text$
+
+text$ = "pitch_mean_log,'f0_mean_logHertz'"
+appendInfoLine: text$
+
+text$ = "pitch_5_log,'f0_pct5_logHertz'"
+appendInfoLine: text$
+
+text$ = "pitch_95_log,'f0_pct95_logHertz'"
+appendInfoLine: text$
+
+text$ = "pitch_range_log,'f0_range_logHertz'"
 appendInfoLine: text$
 
 text$ = "intensity_mean,'int_mean'"

@@ -3,6 +3,7 @@ import os
 from typing import Dict, Optional
 
 import hyphenate
+import numpy as np
 import parselmouth
 from nltk.corpus import cmudict
 
@@ -14,17 +15,22 @@ with open(f"{os.path.realpath(os.path.dirname(__file__))}/processing.praat") as 
 
 
 def extract_features(
-    transcript: str,
+    transcript: str = None,
     wavfile: str = None,
     sound: parselmouth.Sound = None,
+    wav_data: np.array = None,
+    sample_rate: int = None,
     start: Optional[float] = None,
     end: Optional[float] = None,
     channel: Optional[int] = None,
 ) -> Optional[Dict[str, float]]:
 
     if sound is None:
-        sound = parselmouth.Sound(wavfile)
-
+        if wavfile is not None:
+            sound = parselmouth.Sound(wavfile)
+        elif wav_data is not None:
+            sound = parselmouth.Sound(values=wav_data, sampling_frequency=sample_rate)
+    
     if channel is not None:
         sound = sound.extract_channel(channel=channel)
 
@@ -36,10 +42,14 @@ def extract_features(
     if features is None:
         return None
 
-    num_syllables = sum([get_syllables(word) for word in transcript.split(" ")])
+    if transcript is not None:
+        num_syllables = sum([get_syllables(word) for word in transcript.split(" ")])
 
-    features["rate"] = math.log(features["duration"] / num_syllables)
-    features["rate_vcd"] = math.log(features["duration_vcd"] / num_syllables)
+        if num_syllables == 0:
+            return None
+            
+        features["rate"] = features["duration"] / num_syllables
+        features["rate_vcd"] = features["duration_vcd"] / num_syllables
 
     return features
 

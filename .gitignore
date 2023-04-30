@@ -4,7 +4,6 @@
 
 # Custom ML project exclusions
 lightning_logs/
-
 .vscode/
 
 # Byte-compiled / optimized / DLL files
