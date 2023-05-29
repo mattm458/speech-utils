@@ -51,8 +51,8 @@ class TacotronMelSpectrogram(MelSpectrogram):
         )
 
         assert (
-            (cache and cache_dir is not None) or not cache
-        ), "If caching spectrograms, a cache directory is required"
+            cache and cache_dir is not None
+        ) or not cache, "If caching spectrograms, a cache directory is required"
 
         if cache and path.exists(cache_dir):
             logging.warn(
