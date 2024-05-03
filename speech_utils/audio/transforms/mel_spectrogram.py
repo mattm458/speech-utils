@@ -35,9 +35,9 @@ def pad_mel(wav: Tensor):
 
 
 class TacotronMelSpectrogram(MelSpectrogram):
-    def __init__(self, n_mels=80, cache=False, cache_dir=None):
+    def __init__(self, n_mels=80, cache=False, cache_dir=None, sample_rate=22050):
         super().__init__(
-            sample_rate=22050,
+            sample_rate=sample_rate,
             n_fft=1024,
             win_length=1024,
             hop_length=256,
